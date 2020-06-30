@@ -28,6 +28,7 @@ router.post("/", (req, res, next) => {
             createdAt: new Date().getTime()
         }).then(doc => {
             sendRes(res, null, {
+                url: "http://localhost:3000/" + shortLink,
                 shorted: doc.short,
                 message
             })
