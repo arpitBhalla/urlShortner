@@ -1,0 +1,21 @@
+{
+  "name": "url-shortner",
+  "version": "1.0.0",
+  "description": "Url Shortner Service for me",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "keywords": [
+    "Arpit",
+    "BHalla"
+  ],
+  "author": "Arpit Bhalla <arpitbhalla2001@gmai.com>",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.9.20"
+  }
+}
