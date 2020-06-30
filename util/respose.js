@@ -1,4 +1,4 @@
-module.exports=(res,data,error=false)=>{
+module.exports=(res,error=null,data)=>{
     if(error){
         res.send({
             success:false,

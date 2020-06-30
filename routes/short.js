@@ -1,19 +1,44 @@
 const { request } = require("express");
 
-const express=require('express');
-const router=express.Router()
+const express = require('express');
+const router = express.Router()
 const sendRes = require('../util/respose')
+const db = require('../models/url')
+const { v1 } = require('uuid')
 
-const UID=(max=6)=>(new Date().getTime()*Math.random()).toString(16).substr(2,max)
+const UID = (max = 6) => v1().replace(/-/g, "").substr(0, max)
 
-router.use((req,res,next)=>{
-    const {headers}=req
-    const API=headers['x-api-key']
-    console.log(API)
-    console.log("Short API called")
-    // console.log(gen)
-    sendRes(res,"ADSFG")
+router.post("/", (req, res, next) => {
+    const { headers } = req
+    const API = headers['x-api-key']
+    if (!API)
+        return sendRes(res, "API Required")
+    db.find({ short: shortLink }, (err, doc) => {
+        const { url, max, custom } = req.body
+        let message = null;
+        if(max<5)
+            message="Link can not less than 5 characters"
+        let shortLink = custom || UID(max || 6)
+        if (err)
+            return sendRes(res, err)
+        if (doc.length)
+            shortLink = UID(max || 6), message = "Custom Link was not available"
+
+        db.create({
+            url,
+            short: shortLink,
+            createdAt: new Date().getTime()
+        }).then(doc => {
+            sendRes(res, null, {
+                shorted: doc.short,
+                message
+            })
+        }).catch(err => {
+            sendRes(res, err)
+        })
+    })
+
     return 0;
 })
 
-module.exports=router
+module.exports = router
