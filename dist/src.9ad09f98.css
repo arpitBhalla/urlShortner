@@ -1,5 +1,6 @@
 *{
     box-sizing: border-box;
+    font-family: 'Josefin Sans', Arial, Helvetica, sans-serif;
 }
 body{
     background-color: #eee;
@@ -7,7 +8,6 @@ body{
 .box{
     display: flex;
     align-items: center;
-    /* box-shadow:0px 3px 4px #777 ; */
     flex-direction: column;
 }
 .box #url{
@@ -41,8 +41,18 @@ body{
     transition: .3s;
     background-color: transparent;
     color: blueviolet;
-    /* border-color: blueviolet; */
 }
-
+.container{
+    display: flex;
+    flex-direction: column;
+    box-shadow:0px 0px 8px #ccc ;
+    padding: 14px;
+    color: blue;
+    border-radius: 4px;
+}
+.container a{
+    text-decoration: none;
+    text-align: center;
+}
 
 /*# sourceMappingURL=/src.9ad09f98.css.map */
