@@ -11,7 +11,9 @@ router.post("/", (req, res, next) => {
     const API = headers['x-api-key']
     if (!API)
         return sendRes(res, "API Required")
-    const { url, max, custom } = req.body
+    const { url, max, custom } = req.body || {}
+    if (!url)
+       return sendRes(res, "Url Required")
     let shortLink = custom || UID(max || 6)
     db.find({ short: shortLink }, (err, doc) => {
         let message = null;
@@ -28,12 +30,11 @@ router.post("/", (req, res, next) => {
             createdAt: new Date().getTime()
         }).then(doc => {
             sendRes(res, null, {
-                url: "http://localhost:3000/" + shortLink,
                 shorted: doc.short,
                 message
             })
         }).catch(err => {
-            sendRes(res, err)
+            sendRes(res, err.message)
         })
     })
 
