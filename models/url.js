@@ -1,11 +1,20 @@
-const mongoose = require('mongoose')
-const { Schema } = mongoose
-const Model = new Schema({
+const mongoose = require("mongoose");
+const { nanoid } = require("nanoid");
+const { Schema } = mongoose;
+
+const Model = new Schema(
+  {
     url: { type: String, required: true },
-    short: { type: String, required: true},
-    createdAt: { type: Number}
-})
+    short: {
+      type: String,
+      default: nanoid(7),
+      trim: true,
+      unique: true,
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
 
-Model.index("short")
-
-module.exports = mongoose.model("url", Model)
+module.exports = mongoose.model("url", Model);

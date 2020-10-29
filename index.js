@@ -1,27 +1,22 @@
-const express = require('express')
+const express = require("express");
 const app = express();
-const bodyParser = require('body-parser')
-const mongoose=require('mongoose')
-const shortUrlRouter=require('./routes/short')
-const mainRouter=require('./routes/main')
+const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
+const route = require("./routes/shortUrl");
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use("/", route);
 
-const PORT = process.env.PORT || 4000
-const MONGO=process.env.MONGO_URI || "mongodb://127.0.0.1:27017/urlShortner"
-const MONGOOSE_OPTION={
-    useUnifiedTopology:true,
-    useNewUrlParser:true
-}
-mongoose.connect(MONGO,MONGOOSE_OPTION,(err)=>{
-    if(err)
-    console.log("Error while connecting to MongoDB, Err:",err)
-})
-app.use('/',mainRouter)
-
-app.use('/shortUrl', shortUrlRouter)
-
-app.listen(PORT, () => {
-    console.log(`Listening at port ${PORT}`)
-})
+const PORT = process.env.PORT || 4000;
+const MONGO = process.env.MONGO_URI || "mongodb://127.0.0.1:27017/urlShortner";
+const MONGOOSE_OPTION = {
+  useUnifiedTopology: true,
+  useNewUrlParser: true,
+};
+mongoose.connect(MONGO, MONGOOSE_OPTION, (err) => {
+  if (err) console.log("Error while connecting to MongoDB, Err:", err);
+  app.listen(PORT, () => {
+    console.log(`Listening at port ${PORT}`);
+  });
+});
