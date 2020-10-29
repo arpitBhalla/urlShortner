@@ -4,6 +4,7 @@ const Url = require("../models/url");
 
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
+
   let data = await Url.find({ short: id });
   if (data.length) {
     res.redirect(data[0].url);
