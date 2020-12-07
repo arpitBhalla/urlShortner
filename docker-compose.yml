@@ -1,0 +1,15 @@
+version: "1"
+services:
+  app:
+    container_name: url-shortner
+    restart: always
+    build: .
+    ports:
+      - "80:80"
+    links:
+      - mongo
+  mongo:
+    container_name: mongo
+    image: mongo
+    ports:
+      - "27018:27017"
